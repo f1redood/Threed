@@ -1,5 +1,6 @@
 export default class Shader {
-  constructor(p) {
-    this.program = p;
+  program = {};
+  createFragShader(frag) {
+    this.program["frag"] = new Function("data", frag);
   }
 }
