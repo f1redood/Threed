@@ -10,9 +10,26 @@ export default class RenderBuffer {
   }
 
   render() {
+    var fragments = [];
     for (var i = 0; i < this.inds.length; i += 3) {
-      for (var x = 0; x < this.scene.canvas.width; x++) {
-        for (var y = 0; y < this.scene.canvas.height; y++) {
+      for (var x = Math.min(
+        this.verts[this.inds[i]].x,
+        this.verts[this.inds[i + 1]].x,
+        this.verts[this.inds[i + 2]].x
+      ); x < Math.max(
+        this.verts[this.inds[i]].x,
+        this.verts[this.inds[i + 1]].x,
+        this.verts[this.inds[i + 2]].x
+      ); x++) {
+        for (var y = Math.min(
+          this.verts[this.inds[i]].y,
+          this.verts[this.inds[i + 1]].y,
+          this.verts[this.inds[i + 2]].y
+        ); y < Math.max(
+          this.verts[this.inds[i]].y,
+          this.verts[this.inds[i + 1]].y,
+          this.verts[this.inds[i + 2]].y
+        ); y++) {
           if (this.#isInside(
             new Vector2(this.verts[this.inds[i]].x, this.verts[this.inds[i]].y),
             new Vector2(this.verts[this.inds[i + 1]].x, this.verts[this.inds[i + 1]].y),
