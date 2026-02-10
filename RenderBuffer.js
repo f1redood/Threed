@@ -23,7 +23,7 @@ export default class RenderBuffer {
             new Vector2(x, y)
           ) && this.#isInside(
             new Vector2(this.verts[this.inds[i + 2]].x, this.verts[this.inds[i + 2]].y),
-            new Vector2(this.verts[this.inds[i + 3]].x, this.verts[this.inds[i + 3]].y),
+            new Vector2(this.verts[this.inds[i]].x, this.verts[this.inds[i]].y),
             new Vector2(x, y)
           )) {
             this.scene.ctx.fillRect(x, y, 1, 1);
