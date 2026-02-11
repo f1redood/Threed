@@ -6,6 +6,6 @@ export default class Shader {
   }
 
   createVertShader(vert) {
-    this.program["vert"] = new Function("data", vert);
+    this.program["vert"] = new Function("data", vert + " return data;");
   }
 }
