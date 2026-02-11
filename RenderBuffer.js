@@ -6,11 +6,18 @@ export default class RenderBuffer {
   }
 
   loadData(v, i, uv) {
-    [this.verts, this.inds] = [v, i, uv];
+    [this.verts, this.inds, this.uvs] = [v, i, uv];
+  }
+
+  loadShader(s) {
+    this.shader = s;
   }
 
   render() {
     var fragments = [];
+    for (var v = 0; v < this.verts.length; v++) {
+      this.verts[v] = this.shader.program.vert({ vertPos: this.verts[v] }).vertPos;
+    }
     for (var i = 0; i < this.inds.length; i += 3) {
       for (var x = Math.min(
         this.verts[this.inds[i]].x,
