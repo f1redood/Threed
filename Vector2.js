@@ -1,12 +1,8 @@
 export default class Vector2 {
-  static ZERO = new Vector2(0);
+  static ZERO = new Vector2(0, 0);
   
   constructor(x, y) {
     [this.x, this.y] = [x, y];
-  }
-
-  constructor(x) {
-    [this.x, this.y] = x;
   }
   
   add(v) {
