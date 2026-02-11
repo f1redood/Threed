@@ -4,48 +4,53 @@ export default class Vector2 {
   }
   
   add(v) {
-    this.x += v.x;
-    this.y += v.y;
-  }
-  add(x) {
-    this.x += x;
-    this.y += x;
+    if (v instanceof Vector2) {
+      this.x += v.x;
+      this.y += v.y;
+    } else {
+      this.x += v;
+      this.y += v;
+    }
   }
 
   sub(v) {
-    this.x -= v.x;
-    this.y -= v.y;
-  }
-  sub(x) {
-    this.x -= x;
-    this.y -= x;
+    if (v instanceof Vector2) {
+      this.x -= v.x;
+      this.y -= v.y;
+    } else {
+      this.x -= v;
+      this.y -= v;
+    }
   }
 
   mul(v) {
-    this.x *= v.x;
-    this.y *= v.y;
-  }
-  mul(v) {
-    this.x *= x;
-    this.y *= x;
+    if (v instanceof Vector2) {
+      this.x *= v.x;
+      this.y *= v.y;
+    } else {
+      this.x *= v;
+      this.y *= v;
+    }
   }
 
   div(v) {
-    this.x /= v.x;
-    this.y /= v.y;
-  }
-  div(x) {
-    this.x /= x;
-    this.y /= x;
+    if (v instanceof Vector2) {
+      this.x /= v.x;
+      this.y /= v.y;
+    } else {
+      this.x /= v;
+      this.y /= v;
+    }
   }
 
   pow(v) {
-    this.x = Math.pow(this.x, v.x);
-    this.y = Math.pow(this.y, v.y);
-  }
-  pow(v) {
-    this.x = Math.pow(this.x, x);
-    this.y = Math.pow(this.y, x);
+    if (v instanceof Vector2) {
+      this.x = Math.pow(this.x, v.x);
+      this.y = Math.pow(this.y, v.y);
+    } else {
+      this.x = Math.pow(this.x, v);
+      this.y += Math.pow(this.y, v);
+    }
   }
 
   rotate(x) {
