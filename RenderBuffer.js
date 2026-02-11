@@ -17,38 +17,38 @@ export default class RenderBuffer {
     var newVerts = [];
     var fragments = [];
     for (var v = 0; v < this.verts.length; v++) {
-      this.newVerts.push(this.shader.program.vert({ aPos: this.verts[v], vertPos: Vector2.ZERO }).vertPos);
+      newVerts.push(this.shader.program.vert({ aPos: this.verts[v], vertPos: Vector2.ZERO }).vertPos);
     }
     for (var i = 0; i < this.inds.length; i += 3) {
       for (var x = Math.min(
-        this.newVerts[this.inds[i]].x,
-        this.newVerts[this.inds[i + 1]].x,
-        this.newVerts[this.inds[i + 2]].x
+        newVerts[this.inds[i]].x,
+        newVerts[this.inds[i + 1]].x,
+        newVerts[this.inds[i + 2]].x
       ); x < Math.max(
-        this.newVerts[this.inds[i]].x,
-        this.newVerts[this.inds[i + 1]].x,
-        this.newVerts[this.inds[i + 2]].x
+        newVerts[this.inds[i]].x,
+        newVerts[this.inds[i + 1]].x,
+        newVerts[this.inds[i + 2]].x
       ); x++) {
         for (var y = Math.min(
-          this.newVerts[this.inds[i]].y,
-          this.newVerts[this.inds[i + 1]].y,
-          this.newVerts[this.inds[i + 2]].y
+          newVerts[this.inds[i]].y,
+          newVerts[this.inds[i + 1]].y,
+          newVerts[this.inds[i + 2]].y
         ); y < Math.max(
-          this.newVerts[this.inds[i]].y,
-          this.newVerts[this.inds[i + 1]].y,
-          this.newVerts[this.inds[i + 2]].y
+          newVerts[this.inds[i]].y,
+          newVerts[this.inds[i + 1]].y,
+          newVerts[this.inds[i + 2]].y
         ); y++) {
           if (this.#isInside(
-            new Vector2(this.newVerts[this.inds[i]].x, this.newVerts[this.inds[i]].y),
-            new Vector2(this.newVerts[this.inds[i + 1]].x, this.newVerts[this.inds[i + 1]].y),
+            new Vector2(newVerts[this.inds[i]].x, newVerts[this.inds[i]].y),
+            new Vector2(newVerts[this.inds[i + 1]].x, newVerts[this.inds[i + 1]].y),
             new Vector2(x, y)
           ) && this.#isInside(
-            new Vector2(this.newVerts[this.inds[i + 1]].x, this.newVerts[this.inds[i + 1]].y),
-            new Vector2(this.newVerts[this.inds[i + 2]].x, this.newVerts[this.inds[i + 2]].y),
+            new Vector2(newVerts[this.inds[i + 1]].x, newVerts[this.inds[i + 1]].y),
+            new Vector2(newVerts[this.inds[i + 2]].x, newVerts[this.inds[i + 2]].y),
             new Vector2(x, y)
           ) && this.#isInside(
-            new Vector2(this.newVerts[this.inds[i + 2]].x, this.newVerts[this.inds[i + 2]].y),
-            new Vector2(this.newVerts[this.inds[i]].x, this.newVerts[this.inds[i]].y),
+            new Vector2(newVerts[this.inds[i + 2]].x, newVerts[this.inds[i + 2]].y),
+            new Vector2(newVerts[this.inds[i]].x, newVerts[this.inds[i]].y),
             new Vector2(x, y)
           )) {
             this.scene.ctx.fillRect(x, y, 1, 1);
