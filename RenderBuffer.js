@@ -17,7 +17,7 @@ export default class RenderBuffer {
     var newVerts = [];
     var fragments = [];
     for (var v = 0; v < this.verts.length; v++) {
-      this.newVerts[v] = this.shader.program.vert({ aPos: this.verts[v], vertPos: Vector2.ZERO }).vertPos;
+      this.newVerts.push(this.shader.program.vert({ aPos: this.verts[v], vertPos: Vector2.ZERO }).vertPos);
     }
     for (var i = 0; i < this.inds.length; i += 3) {
       for (var x = Math.min(
