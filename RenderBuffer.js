@@ -1,8 +1,6 @@
 import Vector2 from "https://f1redewd123.github.io/Threed/Vector2.js";
 
 export default class RenderBuffer {
-  #shaderProperties = {};
-  
   constructor(s) {
     this.scene = s;
   }
@@ -15,17 +13,10 @@ export default class RenderBuffer {
     this.shader = s;
   }
 
-  setShaderProperty(key, value) {
-    this.#shaderProperties[key] = value;
-  }
-
   render() {
     var newVerts = [];
     var fragments = [];
     for (var v = 0; v < this.verts.length; v++) {
-      var props = this.#shaderProperties;
-      props["aPos"] = this.verts[v];
-      props["position"] = Vector3.ZERO;
       newVerts.push(this.shader.program.vert({ aPos: this.verts[v], position: Vector3.ZERO }).position);
     }
     for (var i = 0; i < this.inds.length; i += 3) {
