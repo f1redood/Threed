@@ -9,10 +9,10 @@ export default class Vector4 {
 
   mulMatrix(mat) {
     return new Vector4(
-      this.x * mat.x.x + this.y * mat.x.y + this.z * mat.x.z + this.w * mat.x.w,
-      this.x * mat.y.x + this.y * mat.y.y + this.z * mat.y.z + this.w * mat.y.w,
-      this.x * mat.z.x + this.y * mat.z.y + this.z * mat.z.z + this.w * mat.z.w,
-      this.x * mat.w.x + this.y * mat.w.y + this.z * mat.w.z + this.w * mat.w.w
+      this.x * mat.x.x + this.y * mat.y.x + this.z * mat.z.x + this.w * mat.w.x,
+      this.x * mat.x.y + this.y * mat.y.y + this.z * mat.z.y + this.w * mat.w.y,
+      this.x * mat.x.z + this.y * mat.y.z + this.z * mat.z.z + this.w * mat.w.z,
+      this.x * mat.x.w + this.y * mat.y.w + this.z * mat.z.w + this.w * mat.w.w
     );
   }
 }
