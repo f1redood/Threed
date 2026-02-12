@@ -70,6 +70,5 @@ export default class RenderBuffer {
 
   #isInside(l0, l1, p) {
     return ((p.x - l0.x) * (l1.y - l0.y) - (p.y - l0.y) * (l1.x - l0.x)) <= 0;
-    }
   }
 }
