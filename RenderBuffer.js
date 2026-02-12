@@ -1,6 +1,12 @@
 import Vector2 from "https://f1redewd123.github.io/Threed/Vector2.js";
 
 export default class RenderBuffer {
+  static bufferProperties = {
+    CULLING_ORDER: 0
+  };
+  properties = {
+    0: 0
+  };
   constructor(s) {
     this.scene = s;
   }
@@ -69,6 +75,15 @@ export default class RenderBuffer {
   }*/
 
   #isInside(l0, l1, p) {
-    return ((p.x - l0.x) * (l1.y - l0.y) - (p.y - l0.y) * (l1.x - l0.x)) <= 0;
+    switch (this.properties[0]) {
+      case 0:
+        return ((p.x - l0.x) * (l1.y - l0.y) - (p.y - l0.y) * (l1.x - l0.x)) <= 0;
+        break;
+      case 1:
+        var val = ((p.x - l0.x) * (l1.y - l0.y) - (p.y - l0.y) * (l1.x - l0.x));
+        return val <= 0 || val >= 0;
+      case 2:
+        return ((p.x - l0.x) * (l1.y - l0.y) - (p.y - l0.y) * (l1.x - l0.x)) >= 0;
+    }
   }
 }
