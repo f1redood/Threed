@@ -1,11 +1,11 @@
 export default class Shader {
   program = {};
   
-  createFragShader(frag) {
+  createFragmentShader(frag) {
     this.program["frag"] = new Function("data", frag);
   }
 
-  createVertShader(vert) {
+  createVertexShader(vert) {
     this.program["vert"] = new Function("data", vert + " return data;");
   }
 }
