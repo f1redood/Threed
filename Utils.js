@@ -1,4 +1,3 @@
-import Vector3 from "https://f1redewd123.github.io/Threed/Vector3.js";
 import Vector4 from "https://f1redewd123.github.io/Threed/Vector4.js";
 
 export default class Utils {
