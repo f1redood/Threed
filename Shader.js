@@ -1,3 +1,5 @@
+import * from "https://f1redewd123.github.io/Threed/Package.js";
+
 export default class Shader {
   program = {};
   
@@ -5,7 +7,8 @@ export default class Shader {
     this.program["frag"] = new Function("data", frag);
   }
 
-  createVertexShader(vert) {
-    this.program["vert"] = new Function("data", vert + " return data;");
+  async createVertexShader(vert) {
+    var package = genPrimitives();
+    this.program["vert"] = new Function("data", package + vert + " return data;");
   }
 }
