@@ -29,7 +29,6 @@ export default class RenderBuffer {
     }
 
     /* FRAGMENT PARSING */
-    var data = [];
     for (var i = 0; i < this.inds.length; i += 3) {
       var minX = Math.min(
         newVerts[this.inds[i]].x,
@@ -83,13 +82,11 @@ export default class RenderBuffer {
               ),
               fragColor: Vector4.ZERO
             }).fragColor;
-            data.push(...[res.x, res.y, res.z, res.w]);
+            scene.ctx.fillStyle = `rgba(${res.x}, ${res.y}, ${res.z}, ${res.w})`;
           }
         }
       }
     }
-
-    this.scene.ctx.putImageData(new ImageData(data, maxX - minX, maxY - minY), minX, minY);
   }
 
   #getVec2LerpValues(x, y) {
