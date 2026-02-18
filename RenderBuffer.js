@@ -74,8 +74,8 @@ export default class RenderBuffer {
             
             var d = (p1.y - p2.y) * (p0.x - p2.x) + (p2.x - p1.x) * (p0.y - p2.y);
             
-            var w0 = ((p1.y - p2.y) * (p.x - p2.x) + (p2.x - p1.x) * (p.y - p2.y)) / d;
-            var w1 = ((p2.y - p0.y) * (p.x - p2.x) + (p0.x - p2.x) * (p.y - p2.y)) / d;
+            var w0 = ((p1.y - p2.y) * (x - p2.x) + (p2.x - p1.x) * (y - p2.y)) / d;
+            var w1 = ((p2.y - p0.y) * (x - p2.x) + (p0.x - p2.x) * (y - p2.y)) / d;
             var w2 = 1 - w0 - w1;
             
             var res = this.shader.program.frag({
@@ -105,6 +105,6 @@ export default class RenderBuffer {
   }
 
   #isInside(l0, l1, p) {
-    return ((p.x - l0.x) * (l1.y - l0.y) - (p.y - l0.y) * (l1.x - l0.x));
+    return ((x - l0.x) * (l1.y - l0.y) - (y - l0.y) * (l1.x - l0.x));
   }
 }
