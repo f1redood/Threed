@@ -68,6 +68,10 @@ export default class RenderBuffer {
             new Vector2(x, y)
           );
           if (l0 <= 0 && l1 <= 0 && l2 <= 0) {
+            var p0 = newVerts[this.inds[i]];
+            var p1 = newVerts[this.inds[i + 1]];
+            var p2 = newVerts[this.inds[i + 2]];
+            
             var d = (p1.y - p2.y) * (p0.x - p2.x) + (p2.x - p1.x) * (p0.y - p2.y);
             
             var w0 = ((p1.y - p2.y) * (p.x - p2.x) + (p2.x - p1.x) * (p.y - p2.y)) / d;
