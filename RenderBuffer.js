@@ -1,4 +1,6 @@
 import Vector2 from "https://f1redewd123.github.io/Threed/Vector2.js";
+import Vector3 from "https://f1redewd123.github.io/Threed/Vector3.js";
+import Vector4 from "https://f1redewd123.github.io/Threed/Vector4.js";
 
 export default class RenderBuffer {
   #shaderProperties = {};
@@ -23,7 +25,7 @@ export default class RenderBuffer {
     /* VERTEX PARSING */
     var newVerts = [];
     for (var v = 0; v < this.verts.length; v++) {
-      newVerts.push(this.shader.program.vert({ ...this.#shaderProperties, aPos: this.verts[v], position: Vector2.ZERO }).position);
+      newVerts.push(this.shader.program.vert({ ...this.#shaderProperties, aPos: this.verts[v], position: Vector3.ZERO }).position);
     }
 
     /* FRAGMENT PARSING */
