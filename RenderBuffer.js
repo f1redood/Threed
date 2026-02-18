@@ -29,7 +29,7 @@ export default class RenderBuffer {
     }
 
     /* FRAGMENT PARSING */
-    var data = new Array((maxX - minX) * (maxY - minY));
+    var data = [];
     for (var i = 0; i < this.inds.length; i += 3) {
       var minX = Math.min(
         newVerts[this.inds[i]].x,
