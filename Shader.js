@@ -12,7 +12,7 @@ export default class Shader {
   }
   
   createFragmentShader(frag) {
-    this.program["frag"] = new Function("data", frag);
+    this.program["frag"] = new Function("data", frag + " return data;");
   }
 
   createVertexShader(vert) {
