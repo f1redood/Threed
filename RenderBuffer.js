@@ -20,51 +20,71 @@ export default class RenderBuffer {
   }
 
   render() {
+    /* VERTEX PARSING */
     var newVerts = [];
-    var fragments = [];
     for (var v = 0; v < this.verts.length; v++) {
       newVerts.push(this.shader.program.vert({ ...this.#shaderProperties, aPos: this.verts[v], position: Vector2.ZERO }).position);
     }
+
+    /* FRAGMENT PARSING */
+    var data = new Array((maxX - minX) * (maxY - minY));
     for (var i = 0; i < this.inds.length; i += 3) {
-      for (var x = Math.min(
+      var minX = Math.min(
         newVerts[this.inds[i]].x,
         newVerts[this.inds[i + 1]].x,
         newVerts[this.inds[i + 2]].x
-      ); x < Math.max(
+      );
+      var maxX = Math.max(
         newVerts[this.inds[i]].x,
         newVerts[this.inds[i + 1]].x,
         newVerts[this.inds[i + 2]].x
-      ); x++) {
-        for (var y = Math.min(
-          newVerts[this.inds[i]].y,
-          newVerts[this.inds[i + 1]].y,
-          newVerts[this.inds[i + 2]].y
-        ); y < Math.max(
-          newVerts[this.inds[i]].y,
-          newVerts[this.inds[i + 1]].y,
-          newVerts[this.inds[i + 2]].y
-        ); y++) {
-          if (this.#isInside(
+      );
+      var minY = Math.min(
+        newVerts[this.inds[i]].y,
+        newVerts[this.inds[i + 1]].y,
+        newVerts[this.inds[i + 2]].y
+      );
+      var maxY = Math.max(
+        newVerts[this.inds[i]].y,
+        newVerts[this.inds[i + 1]].y,
+        newVerts[this.inds[i + 2]].y
+      );
+      for (var x = minX; x < maxX; x++) {
+        for (var y = minY; y < maxY; y++) {
+          var l0 = this.#isInside(
             new Vector2(newVerts[this.inds[i]].x, newVerts[this.inds[i]].y),
             new Vector2(newVerts[this.inds[i + 1]].x, newVerts[this.inds[i + 1]].y),
             new Vector2(x, y)
-          ) && this.#isInside(
+          );
+          var l1 = this.#isInside(
             new Vector2(newVerts[this.inds[i + 1]].x, newVerts[this.inds[i + 1]].y),
             new Vector2(newVerts[this.inds[i + 2]].x, newVerts[this.inds[i + 2]].y),
             new Vector2(x, y)
-          ) && this.#isInside(
+          );
+          var l2 = this.#isInside(
             new Vector2(newVerts[this.inds[i + 2]].x, newVerts[this.inds[i + 2]].y),
             new Vector2(newVerts[this.inds[i]].x, newVerts[this.inds[i]].y),
             new Vector2(x, y)
-          )) {
-            this.scene.ctx.fillRect(x, y, 1, 1);
+          );
+          if (l0 <= 0 && l1 <= 0 && l2 <= 0) {
+            var res = this.shader.program.frag({
+              ...this.#shaderProperties,
+              fragColor: Vector4.ZERO,
+              uv: new Vector2(
+                -l0 * this.uvs[i].x + -l1 * this.uvs[i + 1].x + -l2 * this.uvs[i + 2].x,
+                -l0 * this.uvs[i].y + -l1 * this.uvs[i + 1].y + -l2 * this.uvs[i + 2].y
+              )
+            }).fragColor;
+            data.push(...[res.x, res.y, res.z, res.w]);
           }
         }
       }
     }
+
+    this.scene.ctx.putImageData(data, minX, minY);
   }
 
-  /*#getVec2LerpValues(x, y) {
+  #getVec2LerpValues(x, y) {
     var vals = [];
     for (var x = Math.min(x.x, x.y); x < Math.max(x.x, x.y); x++) {
       for (var y = Math.min(x.y, y.y); y < Math.max(x.y, y.y); y++) {
@@ -72,9 +92,9 @@ export default class RenderBuffer {
       }
     }
     return vals;
-  }*/
+  }
 
   #isInside(l0, l1, p) {
-    return ((p.x - l0.x) * (l1.y - l0.y) - (p.y - l0.y) * (l1.x - l0.x)) <= 0;
+    return ((p.x - l0.x) * (l1.y - l0.y) - (p.y - l0.y) * (l1.x - l0.x));
   }
 }
