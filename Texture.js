@@ -4,8 +4,9 @@ export default class Texture {
   width;
   height;
   #dataBuffer = [];
+  filterMode;
   
-  static fromURL(url) {
+  static fromURL(url, filterMode = 1) {
     return new Promise((r, e) => {
       var img = new Image();
       img.crossOrigin = "Anonymous";
@@ -14,6 +15,7 @@ export default class Texture {
         var tex = new Texture();
         tex.width = this.naturalWidth;
         tex.height = this.naturalHeight;
+        tex.filterMode = filterMode;
         for (var i = 0; i < data.length; i += 4) {
           tex.#dataBuffer.push(new Vector4(data[i], data[i + 1], data[i + 2], data[i + 3]));
         }
@@ -36,6 +38,17 @@ export default class Texture {
   samplePos(p) {
     if (p.x > 1 || p.x < 0 || p.y > 1 || p.y < 0)
       return -1;
-    return this.#dataBuffer[Math.floor(p.x * (this.width - 1)) + Math.floor(p.y * (this.height - 1)) * this.width];
+    if (this.filterMode == 0) {
+      return this.#dataBuffer[Math.floor(p.x * (this.width - 1)) + Math.floor(p.y * (this.height - 1)) * this.width];
+    } else if (this.filterMode == 1) {
+      var lerp = function(a, b, t) {
+        return a + (b - a) * t;
+      };
+      return lerp(
+        this.#dataBuffer[Math.floor(p.x * (this.width - 1)) + Math.floor(p.y * (this.height - 1)) * this.width],
+        this.#dataBuffer[Math.ceil(p.x * (this.width - 1)) + Math.ceil(p.y * (this.height - 1)) * this.width],
+        this.#dataBuffer[p.x * (this.width - 1) + p.y * (this.height - 1) * this.width] - this.#dataBuffer[Math.floor(p.x * (this.width - 1)) + Math.floor(p.y * (this.height - 1)) * this.width]
+      );
+    }
   }
 }
