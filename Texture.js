@@ -14,6 +14,7 @@ export default class Texture {
       for (var i = 0; i < data.length; i += 3) {
         tex.#dataBuffer.push(new Vector4(data[i], data[i + 1], data[i + 2], data[i + 3]));
       }
+      return tex;
     };
   }
 
