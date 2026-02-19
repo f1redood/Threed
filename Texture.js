@@ -36,6 +36,6 @@ export default class Texture {
   samplePos(p) {
     if (p.x > 1 || p.x < 0 || p.y > 1 || p.y < 0)
       return -1;
-    return this.#dataBuffer[p.x * Math.floor(this.width - 1) + p.y * Math.floor(this.height - 1) * this.width];
+    return this.#dataBuffer[Math.floor(p.x * (this.width - 1)) + Math.floor(p.y * (this.height - 1)) * this.width];
   }
 }
