@@ -8,7 +8,7 @@ export default class Texture {
   static fromURL(url) {
     return new Promise((r, e) => {
       var img = new Image();
-      img.src = url;
+      img.crossOrigin = "Anonymous";
       img.onload = function() {
         var data = Texture.#create(this);
         var tex = new Texture();
@@ -20,6 +20,7 @@ export default class Texture {
         r(tex);
       };
       img.onerror = () => { e("Texture could not be loaded"); };
+      img.src = url;
     });
   }
 
