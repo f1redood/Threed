@@ -11,7 +11,7 @@ export default class Texture {
     img.onload = function() {
       var data = Texture.#create(this);
       var tex = new Texture();
-      for (var i = 0; i < data.length; i += 3) {
+      for (var i = 0; i < data.length; i += 4) {
         tex.#dataBuffer.push(new Vector4(data[i], data[i + 1], data[i + 2], data[i + 3]));
       }
       return tex;
@@ -24,7 +24,7 @@ export default class Texture {
     canvas.height = img.naturalHeight;
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img);
-    return ctx.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
+    return ctx.getImageData(0, 0, img.naturalWidth, img.naturalHeight).data;
   }
 
   samplePos(p) {
