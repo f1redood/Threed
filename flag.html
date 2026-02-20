@@ -74,7 +74,7 @@
       var shader = new Shader();
       shader.createFragmentShader(`data.fragColor = data.tex.samplePos(data.uv);`);
       shader.createVertexShader(`if (data.aPos.x != 0) {
-        data.position = data.aPos.add(new Vector3(100, 150 + Math.sin((data.time + data.aPos.x) * 10) * 10, 0));
+        data.position = data.aPos.add(new Vector3(100, 150 + Math.sin(data.aPos.x * 10 + data.time) * 10, 0));
       } else {
         data.position = data.aPos.add(new Vector3(100, 150));
       }`);
@@ -90,7 +90,7 @@
         buffer.setShaderProperty("time", t);
         buffer.render();
         
-        t++;
+        t += 100;
       }, 10);
     } catch(e) {
     	alert(e);
