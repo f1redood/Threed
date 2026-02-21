@@ -1,7 +1,7 @@
-import Vector2 from "https://f1redewd123.github.io/Threed/Vector2.js";
-import Vector3 from "https://f1redewd123.github.io/Threed/Vector3.js";
-import Vector4 from "https://f1redewd123.github.io/Threed/Vector4.js";
-import Texture from "https://f1redewd123.github.io/Threed/Texture.js";
+import Vector2 from "https://f1redood.github.io/Threed/Vector2.js";
+import Vector3 from "https://f1redood.github.io/Threed/Vector3.js";
+import Vector4 from "https://f1redood.github.io/Threed/Vector4.js";
+import Texture from "https://f1redood.github.io/Threed/Texture.js";
 
 export default class Shader {
   program = {};
